@@ -12,6 +12,7 @@ function Kanban() {
   const [columns, setColumns] = useState({});
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [kanbanFlag, setKanbanFlag] = useState(false);
   const [newTask, setNewTask] = useState({ name: "", dueDate: null });
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function Kanban() {
       })
     };
     fetchTasks();
-  }, [columns]);
+  }, [kanbanFlag]);
 
   const addTask = async () => {
     if (newTask.name && newTask.dueDate) {
@@ -48,6 +49,7 @@ function Kanban() {
           }));
           setNewTask({ name: "", dueDate: null });
         }
+        setKanbanFlag(prev=>!prev);
         setModalOpen(false);
       }).catch(err => {
         console.log(err)
@@ -82,6 +84,7 @@ function Kanban() {
           [toColumn]: destinationTasks,
         };
       });
+      setKanbanFlag(prev=>!prev);
     }).catch(err => {
       debugger
       console.log(err)

@@ -14,22 +14,21 @@ function Card({ task, fromColumn }) {
     });
 
     function dateStyle(dueDate) {
-        if(new Date(dueDate) == new Date()){
-            return {
-                background:'green',
-                color:'#fff'
-            }
-        }else if(new Date(dueDate) >= new Date()){
-            return {
-                background:'yellow',
-                color:'#fff'
-            }
-        }else if(new Date(dueDate) < new Date()){
-            return {
-                background:'red',
-                color:'#fff'
-            }
+        let style = {
+            background: 'green',
+            color: '#fff'
         }
+        if (new Date(dueDate).toString().slice(4,15) == new Date().toString().slice(4,15)) {
+            style['background'] = 'green';
+            style['color'] = '#fff'
+        } else if (new Date(dueDate) >= new Date()) {
+            style['background'] = '#fcba03';
+            style['color'] = '#fff'
+        } else if (new Date(dueDate) < new Date()) {
+            style['background'] = 'red'
+            style['color'] = '#fff'
+        }
+        return style;
     }
 
     return (
@@ -83,11 +82,11 @@ function Card({ task, fromColumn }) {
             </div>
 
 
-            <div>
+            <div className="task-body">
                 <div>
                     <strong>{task.task}</strong>
                 </div>
-                <div >
+                <div className="date-class">
                     <p style={dateStyle(task.dueDate)}>
                         {moment(task.dueDate).format('ll')}
                     </p>
