@@ -49,7 +49,7 @@ function Kanban() {
           }));
           setNewTask({ name: "", dueDate: null });
         }
-        setKanbanFlag(prev=>!prev);
+        setKanbanFlag(prev => !prev);
         setModalOpen(false);
       }).catch(err => {
         console.log(err)
@@ -84,7 +84,7 @@ function Kanban() {
           [toColumn]: destinationTasks,
         };
       });
-      setKanbanFlag(prev=>!prev);
+      setKanbanFlag(prev => !prev);
     }).catch(err => {
       debugger
       console.log(err)
@@ -94,27 +94,29 @@ function Kanban() {
 
   return (
     <div>
-      <Button onClick={() => setModalOpen(true)} appearance="primary">
-        Add Task
-      </Button>
       {loading ? <div style={{ display: "flex", justifyContent: "center", marginTop: "100px" }}>
         <ColorRing
           visible={true}
-          height="50"
-          width="50"
+          height="40"
+          width="40"
           colors={["#4A90E2", "#4A90E2", "#4A90E2", "#4A90E2", "#4A90E2"]}
         />
-      </div> : (Object.keys(columns).length > 0 ? <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
-        {Object.entries(columns).map(([columnId, tasks]) => (
-          <Column
-            key={columnId}
-            id={columnId}
-            title={columnId}
-            tasks={tasks}
-            moveCard={moveCard}
-          />
-        ))}
-      </div> : <div style={{ display: "flex", justifyContent: 'center', gap: "20px", padding: "20px" }}>
+      </div> : (Object.keys(columns).length > 0 ? <>
+        <Button onClick={() => setModalOpen(true)} appearance="primary">
+          Add Task
+        </Button>
+        <div style={{ display: "flex", gap: "20px", padding: "20px" }}>
+          {Object.entries(columns).map(([columnId, tasks]) => (
+            <Column
+              key={columnId}
+              id={columnId}
+              title={columnId}
+              tasks={tasks}
+              moveCard={moveCard}
+            />
+          ))}
+        </div>
+      </> : <div style={{ display: "flex", justifyContent: 'center', gap: "20px", padding: "20px" }}>
         <p>No data found</p>
       </div>)}
 
